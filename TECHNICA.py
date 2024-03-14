@@ -7,13 +7,10 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.chains import RetrievalQA
 from langchain_community.vectorstores import Qdrant
 from langchain_community.document_loaders import TextLoader
-from deep_translator import GoogleTranslator
 from db_chat import user_message, bot_message
 from langchain_community.document_loaders import PyPDFLoader
-from pypdf import PdfReader
-from PIL import Image
 import requests
-import json as json
+import simplejson
 from dotenv import load_dotenv
 import os
 
@@ -94,7 +91,7 @@ try:
             }
             url = model_url
             response = requests.post(url, json=payload, headers=headers)
-            parsed_data = json.loads(response.text)
+            parsed_data = simplejson.loads(response.text)
     
             prompt.append({"role": "assistant", "content": result})
             st.session_state["prompt"] = prompt
