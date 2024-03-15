@@ -221,58 +221,96 @@ try:
                     stop_prompt="⏹️",
                     just_once=False,
                     use_container_width=False,
-                    key=None,
+                    key="input2",
                     callback=None,
                     args=(),
                     kwargs={}
                 )
 
-            #if question2 and len(question2)>0:
-               # question=question2
+            if question and len(question)>0:
 
-            prompt.append({"role": "user", "content": question})
-            chain_type_kwargs = {"prompt": PROMPT}
+                prompt.append({"role": "user", "content": question})
+                chain_type_kwargs = {"prompt": PROMPT}
+                
+                with messages_container:
+                    user_message(question)
+                    botmsg = bot_message("...", bot_name="Chat Bot")
+
+                qa = RetrievalQA.from_chain_type(
+                    llm=Cohere(model="command", temperature=0, cohere_api_key=cohere_api_key),
+                    chain_type="stuff",
+                    retriever=store.as_retriever(),
+                    chain_type_kwargs=chain_type_kwargs,
+                    return_source_documents=True,
+                )
+
+                answer = qa({"query": question})
+                result = answer["result"].replace("\n", "").replace("Answer:", "").replace("mentioned in the text:","").replace("According to the text you provided,","").replace("According to the provided text, ","")
+
+                lang_code_2 = language_code(question)
+                translated_text = GoogleTranslator(source="en", target=f"{lang_code_2.lower()}").translate(f"{result}")
+                with st.spinner("Loading response .."):
+                    input = "NULL"
+                    botmsg.update(translated_text)
+                prompt.append({"role": "assistant", "content": translated_text})
+                st.session_state["prompt"] = prompt
+
+
+                if translated_text:
+                    tts_button = Button(label="Speak", width=100)
+
+                    tts_button.js_on_event("button_click", CustomJS(code=f"""
+                        var u = new SpeechSynthesisUtterance();
+                        u.text = "{translated_text}";
+                        u.lang = '{lang_code_2}';
+
+                        speechSynthesis.speak(u);
+                        """))
+
+                    st.bokeh_chart(tts_button)
+
+            # Continue with your code using translated_text
+            elif question2 and len(question2)>0:
+                prompt.append({"role": "user", "content": question2})
+                chain_type_kwargs = {"prompt": PROMPT}
+                
+                with messages_container:
+                    user_message(question2)
+                    botmsg = bot_message("...", bot_name="Chat Bot")
+
+                qa = RetrievalQA.from_chain_type(
+                    llm=Cohere(model="command", temperature=0, cohere_api_key=cohere_api_key),
+                    chain_type="stuff",
+                    retriever=store.as_retriever(),
+                    chain_type_kwargs=chain_type_kwargs,
+                    return_source_documents=True,
+                )
+
+                answer = qa({"query": question2})
+                result = answer["result"].replace("\n", "").replace("Answer:", "").replace("mentioned in the text:","").replace("According to the text you provided,","").replace("According to the provided text, ","")
+
+                lang_code_2 = language_code(question2)
+                translated_text = GoogleTranslator(source="en", target=f"{lang_code_2.lower()}").translate(f"{result}")
+                with st.spinner("Loading response .."):
+                    input = "NULL"
+                    botmsg.update(translated_text)
+                prompt.append({"role": "assistant", "content": translated_text})
+                st.session_state["prompt"] = prompt
+
+
+                if translated_text:
+                    tts_button = Button(label="Speak", width=100)
+
+                    tts_button.js_on_event("button_click", CustomJS(code=f"""
+                        var u = new SpeechSynthesisUtterance();
+                        u.text = "{translated_text}";
+                        u.lang = '{lang_code_2}';
+
+                        speechSynthesis.speak(u);
+                        """))
+
+                    st.bokeh_chart(tts_button)
             
-            with messages_container:
-                user_message(question)
-                botmsg = bot_message("...", bot_name="Chat Bot")
-
-            qa = RetrievalQA.from_chain_type(
-                llm=Cohere(model="command", temperature=0, cohere_api_key=cohere_api_key),
-                chain_type="stuff",
-                retriever=store.as_retriever(),
-                chain_type_kwargs=chain_type_kwargs,
-                return_source_documents=True,
-            )
-
-            answer = qa({"query": question})
-            result = answer["result"].replace("\n", "").replace("Answer:", "").replace("mentioned in the text:","").replace("According to the text you provided,","").replace("According to the provided text, ","")
-
-            lang_code_2 = language_code(question)
-            translated_text = GoogleTranslator(source="en", target=f"{lang_code_2.lower()}").translate(f"{result}")
-
-        # Continue with your code using translated_text
-
-            with st.spinner("Loading response .."):
-                input = "NULL"
-                botmsg.update(translated_text)
-            prompt.append({"role": "assistant", "content": translated_text})
-            st.session_state["prompt"] = prompt
-
-
-            if translated_text:
-                tts_button = Button(label="Speak", width=100)
-
-                tts_button.js_on_event("button_click", CustomJS(code=f"""
-                    var u = new SpeechSynthesisUtterance();
-                    u.text = "{translated_text}";
-                    u.lang = '{lang_code_2}';
-
-                    speechSynthesis.speak(u);
-                    """))
-
-                st.bokeh_chart(tts_button)
-
             if(len(prompt)>1):
                 col1,col2,col3=st.columns([1,6,1])
                 res=""
