@@ -18,6 +18,9 @@ from lingua import Language, LanguageDetectorBuilder
 from streamlit_mic_recorder import speech_to_text
 from bokeh.models.widgets import Button
 from bokeh.models import CustomJS
+import re
+
+# Function to validate email address using a regular expression
 
 
 st.set_page_config(
@@ -39,6 +42,9 @@ def bot():
         pages = loader.load_and_split()
         return pages
 
+def validate_email(email):
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(pattern, email)
 
 def send_email(emaill,report,auth):
     email = yagmail.SMTP(user="ojasfarm31@gmail.com", password=auth)
@@ -140,7 +146,7 @@ st.markdown(""" <style>
         """, unsafe_allow_html=True,)
 with st.sidebar:
     st.markdown(
-        "<h1 style='font-style: italic; color: #F55F0E; text-align:center'>Welcome !<pre>  सवागतम !</h1>",
+        "<h1 style='font-style: italic; color: #F55F0E; text-align:center'>Welcome !<pre> स्वागतम् !</h1>",
         unsafe_allow_html=True,)
     st.write("")
 
@@ -203,7 +209,7 @@ try:
             bot_message(message["content"], bot_name="Chat Bot")
 
 
-    if len(email_input) > 11:
+    if len(email_input)  > 11 and validate_email(email_input):
             messages_container = st.container()
             col1, col2 = st.columns([9, 1])
             
@@ -257,7 +263,7 @@ try:
 
 
                 if translated_text:
-                    tts_button = Button(label="Speak", width=100)
+                    tts_button = Button(label="📢)))", width=100)
 
                     tts_button.js_on_event("button_click", CustomJS(code=f"""
                         var u = new SpeechSynthesisUtterance();
@@ -299,7 +305,7 @@ try:
 
 
                 if translated_text:
-                    tts_button = Button(label="Speak", width=100)
+                    tts_button = Button(label="📢)))", width=100)
 
                     tts_button.js_on_event("button_click", CustomJS(code=f"""
                         var u = new SpeechSynthesisUtterance();
@@ -310,11 +316,12 @@ try:
                         """))
 
                     st.bokeh_chart(tts_button)
+
             
             if(len(prompt)>1):
-                col1,col2,col3=st.columns([1,6,1])
+                col1,col2,col3=st.columns([4,7,1])
                 res=""
-                with col3:
+                with col1:
                     email=st.button("Email Chat",help="Email conversations history to your email id")
                     if(email):
                         ques=[]
