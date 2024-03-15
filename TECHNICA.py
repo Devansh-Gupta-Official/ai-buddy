@@ -233,7 +233,7 @@ try:
 ]
 
             detector = LanguageDetectorBuilder.from_languages(*languages).build()
-            language = detector.detect_language_of(result)
+            language = detector.detect_language_of(question)
             language_code=language.iso_code_639_1.name
             translated_text = GoogleTranslator(source="en", target=f"{language_code.lower()}").translate(f"{result}")
             with st.spinner("Loading response .."):
