@@ -12,3 +12,4 @@ lingua-language-detector==2.0.2
 streamlit_mic_recorder==0.0.8
 bokeh==2.4.3
 pypdf==4.1.0
+cohere==4.56
