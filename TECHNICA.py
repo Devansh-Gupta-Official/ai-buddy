@@ -24,7 +24,7 @@ import re
 
 
 st.set_page_config(
-    "Multilingual Chat Bot 🤖", layout="wide", initial_sidebar_state="expanded")
+    "Multilingual AI Buddy 🤖", layout="wide", initial_sidebar_state="expanded")
 
 load_dotenv()
 
@@ -37,7 +37,7 @@ auth=os.getenv('auth')
 
 @st.cache_data
 def bot():
-    with open('task-1.pdf', "rb") as f:
+    with open('value_creed.pdf', "rb") as f:
         loader = PyPDFLoader(f.name)
         pages = loader.load_and_split()
         return pages
@@ -49,8 +49,8 @@ def validate_email(email):
 def send_email(emaill,report,auth):
     email = yagmail.SMTP(user="ojasfarm31@gmail.com", password=auth)
     email.send(to= emaill,
-               subject="Your Conversations with Chat Bot",
-               contents=f"Hi,  \n Check out your conversations with Chat Bot!! \nDo not reply back to this email. \n{report}\nRegards,\n<b>Chat Bot<b>")
+               subject="Your Conversations with AI Buddy",
+               contents=f"Hi,  \n Check out your conversations with AI Buddy!! \nDo not reply back to this email. \n{report}\nRegards,\n<b>AI Buddy<b>")
     return True
 
 def language_code(question):
@@ -137,7 +137,7 @@ def language_code(question):
 
 col1,col2=st.columns([1,8])
 with col2:
-    st.header("Multilingual AI Chat Bot 🤖",divider="rainbow")
+    st.header("Multilingual AI Buddy 🤖",divider="rainbow")
 st.markdown(""" <style>
         section[data-testid="stSidebar"] {
         width: 500px !important;
@@ -152,7 +152,7 @@ with st.sidebar:
 
     st.subheader("ABOUT:")
     st.markdown(
-        "Introducing the <strong>Multi-Lingual Chat Bot</strong> - Your gateway to questions in over <strong>100 languages.</strong>"
+        "Introducing the <strong>Multilingual AI Buddy</strong> - Your gateway to questions in over <strong>100 languages.</strong>"
         "<br><br>Accessible <strong>24/7</strong>, it offers instant information, transcending language barriers,any question,anytime, where information knows no borders.",
         unsafe_allow_html=True,)
 
@@ -173,7 +173,7 @@ initial = st.container()
 message = f"""<div style='display:flex;align-items:center;margin-bottom:10px;'>
                     <img src='https://i.imgur.com/rKTnxVN.png' style='width:50px;height:50px;border-radius:50%;margin-right:10px;'>
                     <div style='background-color:st.get_option("theme.backgroundColor");border: 1px solid {st.get_option("theme.secondaryBackgroundColor")};border-radius:10px;padding:10px;'>
-                    <p style='margin:0;font-weight:bold;'>Multilingual Chat Bot</p>
+                    <p style='margin:0;font-weight:bold;'>Multilingual AI Buddy</p>
                     <p style='margin:0;color={st.get_option("theme.textColor")}'>Hi, How may I assist you today?</p>
                     </div>
                     </div>
@@ -192,7 +192,7 @@ try:
 
     prompt_template = """Text: {context}
     Question: {question}
-    You are replying as an AI Chat Bot n,
+    You are replying as an multilingual AI Chat Bot n,
     answer the question without using any vulgularity."""
 
     PROMPT = PromptTemplate(
@@ -206,7 +206,7 @@ try:
         if message["role"] == "user":
             user_message(message["content"])
         elif message["role"] == "assistant":
-            bot_message(message["content"], bot_name="Chat Bot")
+            bot_message(message["content"], bot_name="AI Buddy")
 
 
     if len(email_input)  > 11 and validate_email(email_input):
@@ -222,7 +222,7 @@ try:
             
             with col2:
                 question2 = speech_to_text(
-                    language='auto',
+                    language='hi',
                     start_prompt="🎙️",
                     stop_prompt="⏹️",
                     just_once=False,
@@ -240,7 +240,7 @@ try:
                 
                 with messages_container:
                     user_message(question)
-                    botmsg = bot_message("...", bot_name="Chat Bot")
+                    botmsg = bot_message("...", bot_name="AI Buddy")
 
                 qa = RetrievalQA.from_chain_type(
                     llm=Cohere(model="command", temperature=0, cohere_api_key=cohere_api_key),
@@ -282,7 +282,7 @@ try:
                 
                 with messages_container:
                     user_message(question2)
-                    botmsg = bot_message("...", bot_name="Chat Bot")
+                    botmsg = bot_message("...", bot_name="AI Buddy")
 
                 qa = RetrievalQA.from_chain_type(
                     llm=Cohere(model="command", temperature=0, cohere_api_key=cohere_api_key),
@@ -356,13 +356,13 @@ try:
                         feedback_type="faces",
                         optional_text_label="[Optional] Please provide an explanation",
                         key="feedback")
-                        feed
+                        # feed
     else:
             initia = st.container()
             messag = f"""<div style='display:flex;align-items:center;margin-bottom:10px;'>
                             <img src='https://i.imgur.com/rKTnxVN.png' style='width:50px;height:50px;border-radius:50%;margin-right:10px;'>
                             <div style='background-color:st.get_option("theme.backgroundColor");border: 1px solid {st.get_option("theme.secondaryBackgroundColor")};border-radius:10px;padding:10px;'>
-                            <p style='margin:0;font-weight:bold;'>Chat Bot</p>
+                            <p style='margin:0;font-weight:bold;'>AI Buddy</p>
                             <p style='margin:0;color={st.get_option("theme.textColor")}'>Enter  your email in left sidebar to ask you queries.</p>
                             </div>
                             </div>
