@@ -29,11 +29,10 @@ st.set_page_config(
 load_dotenv()
 
 
-cohere_api_key = os.getenv('cohere_api_key')
-authorization = os.getenv('authorization')
-# model= 'embed-multilingual-v3.0'
-model_url=os.getenv('model_url')
-auth=os.getenv('auth')
+cohere_api_key = st.secrets["cohere_api_key"]
+authorization = st.secrets["authorization"]
+model_url=st.secrets["model_url"]
+auth=st.secrets["auth"]
 
 @st.cache_data
 def bot():
