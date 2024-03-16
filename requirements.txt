@@ -13,3 +13,5 @@ streamlit_mic_recorder==0.0.8
 bokeh==2.4.3
 pypdf==4.1.0
 cohere==4.56
+streamlit-lottie==0.0.5
+simplejson==3.19.2
