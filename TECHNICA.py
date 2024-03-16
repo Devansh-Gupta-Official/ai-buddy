@@ -181,7 +181,7 @@ with st.sidebar:
     email_input = st.text_input("Enter your Email ID:", placeholder="john@gmail.com")
     st.subheader("HOW TO USE: ")
     st.markdown(
-        "<p style = 'cursor: default;'>1.Enter your Email ID."
+        "<p style = 'cursor: default;'>1. Enter your Email ID."
         "<br>2. Type your question in the text box in your preferred language."
         "<br>3. Click 'Ask'."
         "<br>4.  Hurray! your answer's here!!",
