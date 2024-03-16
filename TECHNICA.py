@@ -172,7 +172,7 @@ with st.sidebar:
 
     st.subheader("ABOUT:")
     st.markdown(
-        "Introducing the <strong>Multilingual AI Buddy</strong> - Your gateway to questions in over <strong>100 languages.</strong>"
+        "Introducing the <strong>Multilingual AI Buddy</strong> - Your gateway to questions in over <strong>75 languages.</strong>"
         "<br><br>Accessible <strong>24/7</strong>, it offers instant information, transcending language barriers,any question,anytime, where information knows no borders.",
         unsafe_allow_html=True,)
 
