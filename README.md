@@ -1,4 +1,5 @@
 # Multilingual AI Buddy 🤖
+![Uploading image.png…]()
 
 ## About
 Introducing the **Multilingual AI Buddy** - Your gateway to questions in over **100 languages**. Accessible 24/7, it offers instant information, transcending language barriers,any question,anytime, where information knows no borders.
