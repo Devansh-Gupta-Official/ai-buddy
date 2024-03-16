@@ -19,6 +19,8 @@ from streamlit_mic_recorder import speech_to_text
 from bokeh.models.widgets import Button
 from bokeh.models import CustomJS
 import re
+from streamlit_lottie import st_lottie
+import simplejson
 
 # Function to validate email address using a regular expression
 
@@ -134,6 +136,10 @@ def language_code(question):
     language_code=language.iso_code_639_1.name
     return language_code
 
+def load_animations(filepath:str):
+    with open(filepath,'r',encoding="utf8") as f:
+        return simplejson.load(f)
+
 col1,col2=st.columns([1,8])
 with col2:
     st.header("Multilingual AI Buddy 🤖",divider="rainbow")
@@ -144,10 +150,25 @@ st.markdown(""" <style>
         </style>
         """, unsafe_allow_html=True,)
 with st.sidebar:
-    st.markdown(
-        "<h1 style='font-style: italic; color: #F55F0E; text-align:center'>Welcome !<pre> स्वागतम् !</h1>",
-        unsafe_allow_html=True,)
-    st.write("")
+    col1,col2,col3=st.columns([1,1,3])
+    with col2:
+        st.write("")
+        spotify = load_animations("robot.json.json")
+        st_lottie(
+            spotify,
+            speed=1,
+            reverse=False,
+            loop=True,
+            quality='medium',
+            height=None,
+            width=None,
+            key="spotify"
+        )
+
+    with col3:
+        st.markdown(
+            "<h1 style='font-style: italic; color: #F55F0E'>Welcome !<pre> स्वागतम् !</h1>",
+            unsafe_allow_html=True,)
 
     st.subheader("ABOUT:")
     st.markdown(
