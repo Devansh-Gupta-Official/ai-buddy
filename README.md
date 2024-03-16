@@ -1,5 +1,6 @@
 # Multilingual AI Buddy 🤖
-![Uploading image.png…]()
+![image](https://github.com/Devansh-Gupta-Official/technica-cohere/assets/159290054/12e5fb63-61b5-49ce-8ae5-c6697589f5fd)
+
 
 ## About
 Introducing the **Multilingual AI Buddy** - Your gateway to questions in over **100 languages**. Accessible 24/7, it offers instant information, transcending language barriers,any question,anytime, where information knows no borders.
