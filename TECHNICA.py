@@ -38,7 +38,7 @@ auth=st.secrets["auth"]
 
 @st.cache_data
 def bot():
-    with open('value_creed.pdf', "rb") as f:
+    with open('samsung_pdf.pdf', "rb") as f:
         loader = PyPDFLoader(f.name)
         pages = loader.load_and_split()
         return pages
