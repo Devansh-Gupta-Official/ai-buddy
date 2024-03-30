@@ -390,8 +390,8 @@ try:
             initia.write(messag, unsafe_allow_html=True)
 
 
-except:
-    st.error("API KEY EXHAUSTED!",icon="🚨")
+except Exception as e:
+    st.error(f"An error occurred: {str(e)}")
 
 
 
