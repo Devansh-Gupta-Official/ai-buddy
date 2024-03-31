@@ -35,8 +35,6 @@ Introducing the **Multilingual AI Buddy** - Your gateway to questions in over **
 3. Set up your environment variables for Cohere API key, authorization, model URL, and email authentication.
 4. Run the app using `streamlit run your_script.py`.
 
-## Author
-- [Your Name](https://github.com/your_username)
 
 ## Acknowledgments
 - [Streamlit](https://streamlit.io/)
